@@ -1,0 +1,40 @@
+# Application that generates single detection and hangs up
+#
+# Deployment
+#    kubectl apply -f ~/demo-yamls/detection-single.yaml
+# Tear Down
+#    kubectl delete -f ~/demo-yamls/detection-single.yaml
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: detection-single
+spec:
+  selector:
+   matchLabels:
+      run: detection-single
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: detection-single
+        Bevan: Test
+        SE: Lumos-Demo
+    spec:
+      containers:
+          - name: detection
+            image: ubuntu:latest
+            imagePullPolicy: Always
+            command:
+              - "bash"
+            args:
+              - "-xc"
+              - "hostname; touch /etc/ld.so.preload; sh -c whoami; cp /usr/bin/whoami ./whoami.rtf; chgrp 0 /etc/ld.so.preload; cat /etc/passwd; tail -f /dev/null"          
+          - name: bevancontainer
+            image: ubuntu:latest
+            imagePullPolicy: Always
+            command:
+              - "bash"
+            args:
+              - "-xc"
+              - "/bin/sh"
