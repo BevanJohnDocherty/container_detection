@@ -1,23 +1,23 @@
 # Application that generates single detection and hangs up
 #
 # Deployment
-#    kubectl apply -f ~/demo-yamls/detection-single.yaml
+#    kubectl apply -f ~/demo-yamls/bevan-demo-detection.yaml
 # Tear Down
-#    kubectl delete -f ~/demo-yamls/detection-single.yaml
+#    kubectl delete -f ~/demo-yamls/bevan-demo-detection.yaml
 #
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: detection-single
+  name: bevan-demo-detection
 spec:
   selector:
    matchLabels:
-      run: detection-single
+      run: bevan-demo-detection
   replicas: 1
   template:
     metadata:
       labels:
-        run: detection-single
+        run: bevan-demo-detection
         Bevan: Test
         SE: Lumos-Demo
     spec:
